@@ -17,14 +17,11 @@ steps:
   displayName: 'dotnet build $(buildConfiguration)'
 - script: dotnet test
   displayName: 'dotnet test'
-
-- task: PublishTestResults@2
+- task: VSTest@2
+  displayName: 'VsTest - testAssemblies'
   inputs:
-    testResultsFormat: 'NUnit' # Options: JUnit, NUnit, VSTest, xUnit
-    testResultsFiles: '**/*TEST-*.xml' 
-    searchFolder: '$(System.DefaultWorkingDirectory)' # Optional
-    mergeTestResults: true # Optional
-    #testRunTitle: 
-    #buildPlatform: # Optional
-    #buildConfiguration: # Optional
-    publishRunAttachments: true # Optional
+    testAssemblyVer2: |
+     **\*test*.dll
+     !**\obj\**
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
