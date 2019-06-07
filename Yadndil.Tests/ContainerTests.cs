@@ -1,8 +1,11 @@
 using NUnit.Framework;
 using System;
+using Yadndil;
+using Yadndil.Tests.TypesForTests.ContainerTestTypes;
 
-namespace Yadndil.Tests
+namespace Tests
 {
+    [TestFixture]
     public class ContainerTests
     {
         [SetUp]
@@ -11,103 +14,103 @@ namespace Yadndil.Tests
         }
 
         [Test]
-        public void Container_Register_ExceptionWhenFirstParameterIsNotInterface()
+        public void Register_ExceptionWhenFirstParameterIsNotInterface()
         {
-            var container = new Yadndil.Container();
+            var container = new Container();
             Assert.Throws<ArgumentException>(() =>
             {
-                container.Register<TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
+                container.Register<ClassForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
             });
         }
 
 
         [Test]
-        public void Container_Register_ThrowsWhenInterfaceHasAlreadyBeenAdded()
+        public void Register_ThrowsWhenInterfaceHasAlreadyBeenAdded()
         {
-            var container = new Yadndil.Container();
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
             Assert.Throws<Exception>(() =>
             {
-                container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
-                container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
+                container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
             });
         }
 
 
         [Test]
-        public void Container_Register_AddsMappingToList()
+        public void Register_AddsMappingToList()
         {
-            var container = new Yadndil.Container();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
             Assert.AreEqual(1, container._mapping.Count);
         }
 
         [Test]
-        public void Container_Get_ExceptionWhenFirstParameterIsNotInterface()
+        public void Get_ExceptionWhenFirstParameterIsNotInterface()
         {
-            var container = new Yadndil.Container();
+            var container = new Container();
             Assert.Throws<ArgumentException>(() =>
             {
-                container.Get<TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
+                container.Get<ClassForContainerTestsWithEmptyConstructor>();
             });
         }
 
         [Test]
-        public void Container_Get_ExceptionWhenNotMapped()
+        public void Get_ExceptionWhenNotMapped()
         {
-            var container = new Yadndil.Container();
+            var container = new Container();
             Assert.Throws<Exception>(() =>
             {
-                container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor>();
+                container.Get<IInterfaceForContainerTestsWithEmptyConstructor>();
             });
         }
 
         [Test]
-        public void Container_Get_ReturnsImplementationWhenConstructorIsEmpty()
+        public void Get_ReturnsImplementationWhenConstructorIsEmpty()
         {
-            var container = new Yadndil.Container();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
-            var result = container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor>();
-            Assert.IsInstanceOf<TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>(result);
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
+            var result = container.Get<IInterfaceForContainerTestsWithEmptyConstructor>();
+            Assert.IsInstanceOf<ClassForContainerTestsWithEmptyConstructor>(result);
         }
 
         [Test]
-        public void Container_Get_CanCallInterfaceMethod()
+        public void Get_CanCallInterfaceMethod()
         {
-            var container = new Yadndil.Container();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
-            var result = container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor>();
-            Assert.AreEqual("Hi!", result.PrintSomething());
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
+            var result = container.Get<IInterfaceForContainerTestsWithEmptyConstructor>();
+            Assert.AreEqual("Something", result.PrintSomething());
         }
 
         [Test]
-        public void Container_Get_ReturnsImplementationWhenConstructorIsNotEmpty()
+        public void Get_ReturnsImplementationWhenConstructorIsNotEmpty()
         {
-            var container = new Yadndil.Container();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithNonEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithNonEmptyConstructor>();
-            var result = container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithNonEmptyConstructor>();
-            Assert.IsInstanceOf<TypesForTests.ContainerTestTypes.ClassForContainerTestsWithNonEmptyConstructor>(result);
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
+            container.Register<IInterfaceForContainerTestsWithNonEmptyConstructor, ClassForContainerTestsWithNonEmptyConstructor>();
+            var result = container.Get<IInterfaceForContainerTestsWithNonEmptyConstructor>();
+            Assert.IsInstanceOf<ClassForContainerTestsWithNonEmptyConstructor>(result);
         }
 
         [Test]
-        public void Container_Get_CanCallInterfaceMethodWhenConstructorIsNotEmpty()
+        public void Get_CanCallInterfaceMethodWhenConstructorIsNotEmpty()
         {
-            var container = new Yadndil.Container();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithEmptyConstructor>();
-            container.Register<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithNonEmptyConstructor, TypesForTests.ContainerTestTypes.ClassForContainerTestsWithNonEmptyConstructor>();
-            var result = container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithNonEmptyConstructor>();
-            Assert.AreEqual("Child: Hi!", result.PrintSomething());
+            var container = new Container();
+            container.Register<IInterfaceForContainerTestsWithEmptyConstructor, ClassForContainerTestsWithEmptyConstructor>();
+            container.Register<IInterfaceForContainerTestsWithNonEmptyConstructor, ClassForContainerTestsWithNonEmptyConstructor>();
+            var result = container.Get<IInterfaceForContainerTestsWithNonEmptyConstructor>();
+            Assert.AreEqual("Child: Something", result.PrintSomething());
         }
 
         [Test]
-        public void Container_FinishRegistering_CircularReferenceCausesStackOverflow()
+        public void FinishRegistering_CircularReferenceCausesStackOverflow()
         {
-            var container = new Yadndil.Container();
+            var container = new Container();
+            container.Register<IInterafce1ForStackOverflow, Class1ForStackOverflow>();
+            container.Register<IInterafce2ForStackOverflow, Class2ForStackOverflow>();
             Assert.Throws<Exception>(() =>
             {
-                container.Register<TypesForTests.ContainerTestTypes.IInterafce1ForStackOverflow, TypesForTests.ContainerTestTypes.Class1ForStackOverflow>();
-                container.Register<TypesForTests.ContainerTestTypes.IInterafce2ForStackOverflow, TypesForTests.ContainerTestTypes.Class2ForStackOverflow>();
-                container.Get<TypesForTests.ContainerTestTypes.IInterfaceForContainerTestsWithNonEmptyConstructor>();
+                container.Get<IInterfaceForContainerTestsWithNonEmptyConstructor>();
             });
         }
 

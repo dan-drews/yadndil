@@ -20,7 +20,7 @@ namespace Yadndil.Tests.TypesForTests
 
             public string PrintSomething()
             {
-                return "Hi!";
+                return "Something";
             }
         }
 
