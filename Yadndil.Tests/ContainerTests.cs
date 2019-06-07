@@ -3,7 +3,7 @@ using System;
 using Yadndil;
 using Yadndil.Tests.TypesForTests.ContainerTestTypes;
 
-namespace Tests
+namespace Yadndil.Tests
 {
     [TestFixture]
     public class ContainerTests
