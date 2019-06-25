@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yadndil", "yadndil\Yadndil.csproj", "{F469B417-B978-43A3-9234-16F4CECC599D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yadndil.Tests", "Yadndil.Tests\Yadndil.Tests.csproj", "{91C85258-24B2-4DFA-9288-3E9960E31780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yadndil.Tests", "Yadndil.Tests\Yadndil.Tests.csproj", "{91C85258-24B2-4DFA-9288-3E9960E31780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yadndil.Demo", "Yadndil.Demo.Console\Yadndil.Demo.csproj", "{0DDDA61E-83CD-4321-A8CC-8B672F30DAF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{91C85258-24B2-4DFA-9288-3E9960E31780}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91C85258-24B2-4DFA-9288-3E9960E31780}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91C85258-24B2-4DFA-9288-3E9960E31780}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDDA61E-83CD-4321-A8CC-8B672F30DAF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDDA61E-83CD-4321-A8CC-8B672F30DAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDDA61E-83CD-4321-A8CC-8B672F30DAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DDDA61E-83CD-4321-A8CC-8B672F30DAF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
